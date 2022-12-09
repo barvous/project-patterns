@@ -1,17 +1,30 @@
 package com.marcos;
 
-import javax.mvc.security.Csrf;
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.marcos.factory.DBConnection;
+import com.marcos.factory.FactoryConnection;
 
 @ApplicationPath("app")
-public class App extends Application {
-    @Override
-    public Map<String, Object> getProperties() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.EXPLICIT);
-        return props;
+public class App {
+
+    public static void main(String[] args) {
+
+        final String CONST_MYSQL = "MYSQL"; 
+        final String CONST_ORACLE = "ORACLE";
+
+        DBConnection db = FactoryConnection.getConnection(CONST_MYSQL, "marcos.coelho",
+         "senha123", "192.168.1.116:8080");
+
+        //  DBConnection db = FactoryConnection.getConnection(CONST_ORACLE, "silas.cunha",
+        //   "minecraft", "192.168.1.118:8080");
+
+         db.getDescricao();
+         System.out.println(db.toString());
+
+         
+
     }
+
+
 }
